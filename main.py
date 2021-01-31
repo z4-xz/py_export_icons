@@ -22,7 +22,7 @@ def concatenate(icons: list, path: str, icons_per_row: int = 5, icons_per_column
         ap_icon_y_pos = vertical_image_margin + icon_height * in_column_counter + vertical_icon_margin * in_column_counter
         ap_icon = Image.open(path + str(icon))
         ap_icon.thumbnail((icon_width, icon_height))
-        result_image.paste(ap_icon, (ap_icon_x_pos, ap_icon_y_pos), ap_icon)
+        result_image.paste(ap_icon, (ap_icon_x_pos, ap_icon_y_pos), ap_ico.convert('RGBA'))
     result_image.save("output.png", "PNG")
 
 #def add_logo(logo_file: str, input_image)
