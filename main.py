@@ -9,7 +9,7 @@ def export_to_png(raw_files: list = [], type: str = ".png"):
 def concatenate(icons: list, path: str, icons_per_row: int = 5, icons_per_column: int = 2, horizontal_icon_margin: int = 10, vertical_icon_margin: int = 10, horizontal_image_margin: int = 20, vertical_image_margin: int = 20, icon_width: int = 300, icon_height: int = 300):
     image_width = 2 * horizontal_image_margin + (icons_per_row - 1) * horizontal_icon_margin + icons_per_row * icon_width
     image_height = 2 * vertical_image_margin + (icons_per_column - 1) * vertical_icon_margin + icons_per_column * icon_height
-    result_image = Image.new('RGB', (image_width, image_height), (100, 100, 100))
+    result_image = Image.new('RGB', (image_width, image_height), (36, 41, 46))
     in_row_counter = 0
     in_column_counter = 0
     for icon in icons:
