@@ -10,6 +10,10 @@ sudo pip3 install -r requirements.txt
 Just put your .svg files in /svg directory and run using ```python3 main.py```.
 Exported to .png icons will be in /png folder. Image with combined PNGS will be next to _main.py_.
 
+### TODO
+- [ ] command line arguments
+- [ ] logo in footer
+- [ ] custom background
+- [ ] custom icons color
 
-## Command line arguments
 
