@@ -1,6 +1,5 @@
 from datetime import datetime
 import os
-import sys
 from PIL import Image
 from cairosvg import svg2png
 import argparse
@@ -38,11 +37,11 @@ report_file = open("report_file_" + str(now_str) + ".txt", "a")
 report_file.write("Report file generated at " + now_str + "\n")
 '''
 
-parser = argparse.ArgumentParser(description="z4-xz.github.io")
-parser.add_argument('-r', '--rows', help='Number of ROWS to draw in output file', default=15, type=int)
-parser.add_argument('-c', '--columns', help='Number of COLUMNS to draw in output file', default=15, type=int)
-parser.add_argument('-ih', '--iconheight', help='Single icon height in pixels', default=200, type=int)
-parser.add_argument('-iw', '--iconwidth', help='Single icon width in pixels', default=200, type=int)
+parser = argparse.ArgumentParser(epilog="### z4-xz.github.io ###")
+parser.add_argument('-r', '--rows', help='Number of ROWS to draw in output file', default = 15, type = int)
+parser.add_argument('-c', '--columns', help='Number of COLUMNS to draw in output file', default=15, type = int)
+parser.add_argument('-ih', '--iconheight', help='Single icon height in pixels', default = 200, type = int)
+parser.add_argument('-iw', '--iconwidth', help='Single icon width in pixels', default = 200, type = int)
 args_dict  = vars(parser.parse_args())
 
 columns = abs(args_dict['columns'])
@@ -55,7 +54,6 @@ output_folder_path = "./png/"
 svgs = []
 pngs = []
 svgs += [file for file in (os.listdir(input_folder_path)) if(file.endswith(".svg"))]
-#print(str(svgs))
 
 for svg in svgs:
     try:
@@ -66,6 +64,5 @@ for svg in svgs:
     except:
         print("ERROR")
 
-#print(pngs)
 concatenate(pngs, output_folder_path) if len(pngs)<=rows*columns else print("Not enough rows or cols")
 

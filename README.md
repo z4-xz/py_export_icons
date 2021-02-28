@@ -1,7 +1,7 @@
 # py_export_icons v0.1
 
 ## How to install
-To install required packages run command below
+To install required packages run this command
 ```
 sudo pip3 install -r requirements.txt
 ```
@@ -15,5 +15,4 @@ Exported to .png icons will be in /png folder. Image with combined PNGS will be 
 - [ ] logo in footer
 - [ ] custom background
 - [ ] custom icons color
-
-
+- [ ] GUI?
