@@ -1,38 +1,40 @@
 import os
+import json
 from datetime import datetime
 from PIL import Image
 from cairosvg import svg2png
 import argparse
 
-settings = {
-  "background": (36, 41, 46),
-  "columns": 13,
-  "rows": 12,
-  "icon_height": 200,
-  "icon_width": 200,
-  "hor_icon_margin": 20,
-  "vert_icon_margin": 20,
-  "hor_image_margin": 20,
-  "vert_image_margin": 20
-}
 
 def concatenate(icons: list, path: str):
+    """Paste images one by one into summary PNG file.
+
+        Keyword arguments:
+
+        icons: list -- list of image names e.g.  ["foo.png", "oof.png"] to be merged 
+
+        path: str -- path to png images directory 
+    """
+    #Result image width and height calculation using settings values
     image_width = (2 * settings["hor_image_margin"]
                     + (settings["columns"] - 1) * settings["hor_icon_margin"]
                     + settings["columns"] * settings["icon_width"])
     image_height = (2 * settings["vert_image_margin"]
                     + (settings["rows"] - 1) * settings["vert_icon_margin"]
                     + settings["rows"] * settings["icon_height"])
-    result_image = Image.new('RGB', (image_width, image_height), settings['background'])
+    #Create new summary image
+    result_image = Image.new('RGB', (image_width, image_height),
+                            (bg_color["red"], bg_color["green"], bg_color["blue"]))
+    #Number of elements in row/column
     in_row_counter = 0
     in_column_counter = 0
     for icon in icons:
         icon_x_pos = (settings["hor_image_margin"]
-                        + settings["icon_width"] * in_row_counter
-                        + settings["hor_icon_margin"] * in_row_counter)
+                    + settings["icon_width"] * in_row_counter
+                    + settings["hor_icon_margin"] * in_row_counter)
         icon_y_pos = (settings["vert_image_margin"]
-                        + settings["icon_height"] * in_column_counter
-                        + settings["vert_icon_margin"] * in_column_counter)
+                    + settings["icon_height"] * in_column_counter
+                    + settings["vert_icon_margin"] * in_column_counter)
         with Image.open(path + str(icon)) as ap_icon:
             ap_icon = ap_icon.resize((settings["icon_width"], settings["icon_height"]))
             result_image.paste(ap_icon, (icon_x_pos, icon_y_pos), ap_icon.convert("RGBA"))
@@ -44,13 +46,9 @@ def concatenate(icons: list, path: str):
     result_image.save("output.png", "PNG")
 
 
-#def add_logo(logo_file: str, input_image)
+settings = json.load(open('settings.json', 'r'))
+bg_color = settings["background"]
 
-'''
-now_str = datetime.now().strftime("%d_%m_%Y_%H-%M-%S")
-report_file = open("report_file_" + str(now_str) + ".txt", "a")
-report_file.write("Report file generated at " + now_str + "\n")
-'''
 
 parser = argparse.ArgumentParser(epilog = "### z4-xz.github.io ###")
 parser.add_argument("-r", "--rows", 
@@ -71,11 +69,13 @@ parser.add_argument("-iw", "--iconwidth",
                     type = int)
 args_dict  = vars(parser.parse_args())
 
+print(abs(args_dict["columns"]))
 settings["columns"] = abs(args_dict["columns"])
+print(abs(args_dict["rows"]))
 settings["rows"] = abs(args_dict["rows"])
 settings["icon_height"] = abs(args_dict["iconheight"])
 settings["icon_width"] = abs(args_dict["iconwidth"])
-
+print(concatenate.__doc__)
 input_dir_path = "./svg/"
 output_dir_path = str(datetime.now().strftime("%d_%m_%Y_%H-%M-%S")) + "/"
 os.mkdir(output_dir_path)
@@ -94,5 +94,8 @@ for svg in svgs:
     except:
         print("ERROR")
 
-concatenate(pngs, output_dir_path) if len(pngs) <= settings["rows"] * settings["columns"] else print("Not enough rows or cols")
+if len(pngs) <= settings["rows"] * settings["columns"]:
+    concatenate(pngs, output_dir_path)
+else:
+    print("Not enough rows or cols")
 print("Done.")
