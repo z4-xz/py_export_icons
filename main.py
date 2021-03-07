@@ -50,7 +50,7 @@ settings = json.load(open('settings.json', 'r'))
 bg_color = settings["background"]
 
 
-parser = argparse.ArgumentParser(epilog = "### z4-xz.github.io ###")
+parser = argparse.ArgumentParser(epilog = "###GITHUB Z4-XZ###")
 parser.add_argument("-r", "--rows", 
                     help = "Number of ROWS to draw in output file", 
                     default = settings["rows"], 
