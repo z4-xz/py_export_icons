@@ -1,0 +1,14 @@
+{
+    "background":{
+        "red":36,
+        "green":41,
+        "blue":46},
+    "columns": 15,
+    "rows": 15,
+    "icon_height": 100,
+    "icon_width": 240,
+    "hor_icon_margin": 20,
+    "vert_icon_margin": 50,
+    "hor_image_margin": 100,
+    "vert_image_margin": 150
+  }
