@@ -196,7 +196,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     
     def browse_files(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self.source_button, 'Open file', 'E:\GIT\py_export_icons_gui\py_export_icons')
+        fname = QtWidgets.QFileDialog.getExistingDirectory(self.source_button, 'Open file', 'E:\GIT\py_export_icons_gui\py_export_icons')
         self.source_label.setText(fname[0])
 
     def export_checkbox_state_changed(self, state):
