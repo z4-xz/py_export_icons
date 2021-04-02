@@ -122,18 +122,19 @@ class Ui_MainWindow(object):
         self.background_color_line_edit = QtWidgets.QLineEdit(self.layoutWidget)
         self.background_color_line_edit.setObjectName("background_color_line_edit")
         self.formLayout.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.background_color_line_edit)
-#        self.default_line_edit_style = self.background_color_line_edit.styleSheet
-#        self.background_color_line_edit.setStyleSheet("border : 91px solid black;")
         self.layoutWidget1 = QtWidgets.QWidget(self.centralwidget)
-        self.layoutWidget1.setGeometry(QtCore.QRect(20, 290, 201, 21))
+        self.layoutWidget1.setGeometry(QtCore.QRect(20, 290, 201, 25))
         self.layoutWidget1.setObjectName("layoutWidget1")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.layoutWidget1)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.source_line_edit = QtWidgets.QLineEdit(self.layoutWidget1)
+        self.source_line_edit.setMaximumSize(QtCore.QSize(160, 23))
         self.source_line_edit.setObjectName("source_line_edit")
         self.horizontalLayout.addWidget(self.source_line_edit)
-        self.source_button = QtWidgets.QToolButton(self.layoutWidget1)
+        self.source_button = QtWidgets.QPushButton(self.layoutWidget1)
+        self.source_button.setMinimumSize(QtCore.QSize(40, 23))
+        self.source_button.setMaximumSize(QtCore.QSize(40, 23))
         self.source_button.setObjectName("source_button")
         self.horizontalLayout.addWidget(self.source_button)
         self.layoutWidget2 = QtWidgets.QWidget(self.centralwidget)
@@ -171,8 +172,8 @@ class Ui_MainWindow(object):
         self.result_image_view.raise_()
         self.start_button.raise_()
         self.layoutWidget.raise_()
-        self.layoutWidget.raise_()
-        self.layoutWidget.raise_()
+        self.layoutWidget1.raise_()
+        self.layoutWidget2.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 910, 20))
@@ -190,9 +191,14 @@ class Ui_MainWindow(object):
         item = QtWidgets.QGraphicsPixmapItem(pixmap)
         scene.addItem(item)
         self.result_image_view.setScene(scene)
+        self.source_button.clicked.connect(self.browse_files)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     
+    def browse_files(self):
+        fname = QtWidgets.QFileDialog.getOpenFileName(self.source_button, 'Open file', 'E:\GIT\py_export_icons_gui\py_export_icons')
+        self.source_label.setText(fname[0])
+
     def export_checkbox_state_changed(self, state):
         if(state==QtCore.Qt.Checked):
             self.icon_width_spinbox.setEnabled(True)
@@ -255,6 +261,7 @@ class Ui_MainWindow(object):
         self.source_label.setText(_translate("MainWindow", "Source"))
         self.select_all_checkbox.setText(_translate("MainWindow", "Select all"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Properties"))
+
 
 
 
