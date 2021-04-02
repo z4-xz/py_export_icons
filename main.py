@@ -171,6 +171,7 @@ class Ui_MainWindow(object):
         self.groupBox.raise_()
         self.result_image_view.raise_()
         self.start_button.raise_()
+        #TODO report bug, 3 times layoutWidget instead of layout...1, layout...2
         self.layoutWidget.raise_()
         self.layoutWidget1.raise_()
         self.layoutWidget2.raise_()
@@ -197,7 +198,7 @@ class Ui_MainWindow(object):
     
     def browse_files(self):
         fname = QtWidgets.QFileDialog.getExistingDirectory(self.source_button, 'Open file', 'E:\GIT\py_export_icons_gui\py_export_icons')
-        self.source_label.setText(fname[0])
+        self.source_line_edit.setText(fname)
 
     def export_checkbox_state_changed(self, state):
         if(state==QtCore.Qt.Checked):
