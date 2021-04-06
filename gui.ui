@@ -288,7 +288,7 @@
       <string>Select all</string>
      </property>
     </widget>
-    <widget class="QTableWidget" name="files_table">
+    <widget class="QListWidget" name="files_table">
      <property name="geometry">
       <rect>
        <x>10</x>

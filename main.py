@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets as QtW
 from PyQt5 import QtCore as QtC
 from PyQt5 import QtGui as QtG
 from PyQt5 import uic
-
+import os
 Ui_MainWindow, baseClass = uic.loadUiType("gui.ui")
 
 class MainWindow(baseClass):
@@ -23,15 +23,20 @@ class MainWindow(baseClass):
         scene.addItem(item)
         self.ui.result_image_view.setScene(scene)
         self.ui.source_button.clicked.connect(self.browse_files)
-
         #
         self.show()
-
-
+        
+    
     
     def browse_files(self):
-        fname = QtW.QFileDialog.getExistingDirectory(self.ui.source_button, 'Open file', 'E:\GIT\py_export_icons_gui\py_export_icons')
+        fname = QtW.QFileDialog.getExistingDirectory(self.ui.source_button, 'Open file', '')
         self.ui.source_line_edit.setText(fname)
+        svgs=[]
+        svgs += [file for file in (os.listdir(fname)) if(file.endswith(".svg"))]
+        self.ui.files_table.clear()
+        for i in svgs:
+            self.ui.files_table.addItem(i)
+            self.ui.files_table.itemDoubleClcked.connect()
 
     def export_checkbox_state_changed(self, state):
         if(state==QtC.Qt.Checked):
@@ -74,6 +79,7 @@ class MainWindow(baseClass):
             print("Export active")
         if self.ui.concatenate_checkbox.isChecked():
             print("Concatenate active")
+
 
 if __name__ == "__main__":
     app = QtW.QApplication(sys.argv)
